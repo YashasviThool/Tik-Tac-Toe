@@ -13,14 +13,14 @@ board2=["_","_","_",
              "_","_","_",
              ]
 def start():
-    l(root)
+    body(root)
     check_if_game_over()
 
 def handle_turn():
     pass
 
 def r(r):
-    global board ,root
+    # global board ,root
     board=["_","_","_",
              "_","_","_",
              "_","_","_",
@@ -40,7 +40,7 @@ def creat_new(r):
     setboard()
     root=Tk()
     enable()
-    l(root)
+    body(root)
     y=Label(root,text=str(winner)+' is last winner')
     z=Label(root,text='hello')
     y.grid(row=5,column=2)
@@ -50,143 +50,8 @@ def creat_new(r):
 
 #defining button fucntions
 
-def b1_clicked(b):
-    global board
-    if b['text']=='_' and game_still_going:
-        
-        board[0]=b['text']=player
-        
-        b['fg']='red'
-        b['bg']='black'
-        swap()
-        b["state"]="disabled"
-        if game_still_going :
-            check_if_game_over()
-        else:
-            block(b)
-            Labl()
-
-def b2_clicked(b):
-    global board
-    if b['text']=='_' and game_still_going:
-        board[1]=b['text']=player
-           
-        b['fg']='red'
-        b['bg']='black'
-        swap()
-        b["state"]="disabled"
-        if game_still_going :
-            check_if_game_over()
-        else:
-            block(b)
-            Labl()
-        
-def b3_clicked(b):
-    global board
-    if b['text']=='_' and game_still_going:
-        board[2]=b['text']=player
-           
-        b['fg']='red'
-        b['bg']='black'
-        swap()
-        b["state"]="disabled"
-        if game_still_going :
-            check_if_game_over()
-        else:
-            block(b)
-            Labl()
-    
-def b4_clicked(b):
-    global board
-    if b['text']=='_' and game_still_going:
-        board[3]=b['text']=player
-           
-        b['fg']='red'
-        b['bg']='black'
-        swap()
-        b["state"]="disabled"
-        if game_still_going :
-            check_if_game_over()
-        else:
-            block(b)
-            Labl()
-    
-def b5_clicked(b):
-    global board
-    if b['text']=='_' and game_still_going:
-        board[4]=b['text']=player
-           
-        b['fg']='red'
-        b['bg']='black'
-        swap()
-        b["state"]="disabled"
-        if game_still_going :
-            check_if_game_over()
-        else:
-            block(b)
-   
-def b6_clicked(b):
-    global board
-    if b['text']=='_' and game_still_going:
-        board[5]=b['text']=player
-           
-        b['fg']='red'
-        b['bg']='black'
-        swap()
-        b["state"]="disabled"
-        if game_still_going :
-            check_if_game_over()
-        else:
-            block(b)
-            Labl()
-   
-def b7_clicked(b):
-    global board
-    if b['text']=='_' and game_still_going:
-        board[6]=b['text']=player
-          
-        
-        b['bg']='black'
-        swap()
-        b['fg']='red'
-        b["state"]="disabled" 
-        if game_still_going :
-            check_if_game_over()
-        else:
-            block(b)
-            Labl()
-   
-def b8_clicked(b):
-    global board
-    if b['text']=='_' and game_still_going:
-        board[7]=b['text']=player
-           
-        b['fg']='red'
-        b['bg']='black'
-        swap()
-        b["state"]="disabled"
-        if game_still_going :
-            check_if_game_over()
-        else:
-            block(b)
-            Labl()
-   
-def b9_clicked(b):
-    global board
-    if b['text']=='_' and game_still_going:
-        board[8]=b['text']=player
-           
-        b['fg']='red'
-        b['bg']='black'
-        swap()
-        b["state"]="disabled"
-        if game_still_going :
-            check_if_game_over()
-        else:
-            block(b)
-            Labl()
 def block(b):
-        b1,b2,b3,b4,b5,b6,b7,b8,b9=l(root)
+        b1,b2,b3,b4,b5,b6,b7,b8,b9=body(root)
         b1["state"]="disabled"
         b2["state"]="disabled"
         b3["state"]="disabled"
@@ -198,7 +63,7 @@ def block(b):
         b9["state"]="disabled"
 	
 def enable():
-        b1,b2,b3,b4,b5,b6,b7,b8,b9=l(root)
+        b1,b2,b3,b4,b5,b6,b7,b8,b9=body(root)
         b1["state"]="normal"
         b2["state"]="normal"
         b3["state"]="normal"
@@ -251,7 +116,6 @@ def check_rows():
 	else:
 		return None
 		
-
 def check_colomns():
 	global game_still_going
 	colomn_1= board[0]==board[3]==board[6]!="_"
@@ -266,7 +130,6 @@ def check_colomns():
 		return board[2]
 	else:
 		return None
-		
 		
 def check_diagonals():
 	global game_still_going
@@ -306,23 +169,34 @@ def distroy(r):
     r.destroy()
     creat_new(r)
   
+def btn_click(b,btn_val):
+    global board
+    if b['text']=='_' and game_still_going:
+        board[btn_val]=b['text']=player
+           
+        b['fg']='red'
+        b['bg']='black'
+        swap()
+        b["state"]="disabled"
+        if game_still_going :
+            check_if_game_over()
+        else:
+            block(b)
+            Labl()
 
 
-
-def l(root):
+def body(root):
    
-        
-        
     l1=Label(root,text='tick tak toe in tkinter')
-    b1=Button(root,text=board[0],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: b1_clicked(b1), state ="active")
-    b2=Button(root,text=board[1],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: b2_clicked(b2))
-    b3=Button(root,text=board[2],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: b3_clicked(b3))
-    b4=Button(root,text=board[3],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: b4_clicked(b4))
-    b5=Button(root,text=board[4],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: b5_clicked(b5))
-    b6=Button(root,text=board[5],font=('helvetica',20), height=3 ,width=6, fg='black',state="normal",command=lambda: b6_clicked(b6))
-    b7=Button(root,text=board[6],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: b7_clicked(b7))
-    b8=Button(root,text=board[7],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: b8_clicked(b8))
-    b9=Button(root,text=board[8],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: b9_clicked(b9))
+    b1=Button(root,text=board[0],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: btn_click(b1,0), state ="active")
+    b2=Button(root,text=board[1],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: btn_click(b2,1))
+    b3=Button(root,text=board[2],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: btn_click(b3,2))
+    b4=Button(root,text=board[3],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: btn_click(b4,3))
+    b5=Button(root,text=board[4],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: btn_click(b5,4))
+    b6=Button(root,text=board[5],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: btn_click(b6,5))
+    b7=Button(root,text=board[6],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: btn_click(b7,6))
+    b8=Button(root,text=board[7],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: btn_click(b8,7))
+    b9=Button(root,text=board[8],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: btn_click(b9,8))
     ex=Button(root,text='reset',font=('helvetica',20),command=lambda: distroy(root), )
 
 
@@ -339,14 +213,8 @@ def l(root):
     b9.grid(row=3 , column=2)
     ex.grid(row=4,column=1)
 
-    return b1,b2,b3,b4,b5,b6,b7,b8,b9
+    # return b1,b2,b3,b4,b5,b6,b7,b8,b9
 
-
-#
 start()
 
-
 root.mainloop()
-
-
-
