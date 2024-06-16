@@ -8,16 +8,14 @@ board=["_","_","_",
              "_","_","_",
              "_","_","_",
              ]
-board2=["_","_","_",
-             "_","_","_",
-             "_","_","_",
-             ]
+robot = False
+
 def start():
     body(root)
     check_if_game_over()
 
-def handle_turn():
-    pass
+# def handle_turn():
+#     pass
 
 def r(r):
     # global board ,root
@@ -39,12 +37,12 @@ def creat_new(r):
     global root
     setboard()
     root=Tk()
-    enable()
+    # enable()
     body(root)
     y=Label(root,text=str(winner)+' is last winner')
-    z=Label(root,text='hello')
-    y.grid(row=5,column=2)
-    z.grid(row=5,column=3)
+    # z=Label(root,text='hello')
+    y.grid(row=5,column=1)
+    # z.grid(row=5,column=3)
     root.mainloop()
     
 
@@ -61,6 +59,7 @@ def block(b):
         b7["state"]="disabled"
         b8["state"]="disabled"
         b9["state"]="disabled"
+		
 	
 def enable():
         b1,b2,b3,b4,b5,b6,b7,b8,b9=body(root)
@@ -82,6 +81,9 @@ def Labl():
 def check_if_game_over():
 	check_for_winner()
 	check_for_tie()
+	if (game_still_going==FALSE):
+		block(root)
+	
 	
 	
 def check_for_winner():
@@ -121,7 +123,8 @@ def check_colomns():
 	colomn_1= board[0]==board[3]==board[6]!="_"
 	colomn_2= board[1]==board[4]==board[7]!="_"	
 	colomn_3= board[2]==board[5]==board[8]!="_"
-	
+	if colomn_1 or colomn_2 or colomn_3:
+		game_still_going = FALSE
 	if colomn_1:
 		return board[0]
 	elif colomn_2:
@@ -135,7 +138,8 @@ def check_diagonals():
 	global game_still_going
 	diagonal_1=board[0]==board[4]==board[8]!="_"
 	diagonal_2=board[6]==board[4]==board[2]!="_"
-	
+	if diagonal_1 or diagonal_2:
+		game_still_going =FALSE
 	if diagonal_1:
 		return board[0]
 	elif diagonal_2:
@@ -162,7 +166,7 @@ def swap():
     if game_still_going:
         if player=="X":
             player="O"
-        elif player=="O":
+        else:
             player="X"
     
 def distroy(r):
@@ -180,9 +184,10 @@ def btn_click(b,btn_val):
         b["state"]="disabled"
         if game_still_going :
             check_if_game_over()
-        else:
-            block(b)
-            Labl()
+    else:
+        block(b)
+        Labl()
+
 
 
 def body(root):
@@ -197,7 +202,13 @@ def body(root):
     b7=Button(root,text=board[6],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: btn_click(b7,6))
     b8=Button(root,text=board[7],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: btn_click(b8,7))
     b9=Button(root,text=board[8],font=('helvetica',20), height=3 ,width=6, fg='black',command=lambda: btn_click(b9,8))
-    ex=Button(root,text='reset',font=('helvetica',20),command=lambda: distroy(root), )
+    ex=Button(root,text='reset',font=('helvetica',20),command=lambda: distroy(root) )
+    # p1=Button(root,text='1 Player',font=('helvetica',20),command=lambda: enable())
+    # p2=Button(root,text='2 Player',font=('helvetica',20),command=lambda: enable())
+    options_list =["Single","Random","Ai"]
+    val_inside=StringVar(root)
+    o=OptionMenu(root,val_inside,*options_list)
+	
 
 
 
@@ -211,9 +222,14 @@ def body(root):
     b7.grid(row=3 , column=0)
     b8.grid(row=3 , column=1)
     b9.grid(row=3 , column=2)
-    ex.grid(row=4,column=1)
+    ex.grid(row=4 , column=1)
+    # p1.grid(row=4 , column=0)
+    # p2.grid(row=4 , column=2)
+    o.grid(row=5 , column=0)
 
-    # return b1,b2,b3,b4,b5,b6,b7,b8,b9
+	
+
+    return b1,b2,b3,b4,b5,b6,b7,b8,b9
 
 start()
 
