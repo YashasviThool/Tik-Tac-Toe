@@ -7,5 +7,5 @@ features :
   
 ## description :
 this game orignaly disgined for porject 
-##How to Run
+## How to Run
 just run main.py with python3 command
